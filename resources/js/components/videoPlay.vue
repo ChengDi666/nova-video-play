@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     createVideo (link) {
-      console.log(link);
       if (flvjs.isSupported()) {
         let videoElement = this.$refs.myVideo;
         this.flvPlayer = flvjs.createPlayer({
@@ -39,7 +38,6 @@ export default {
           hasAudio: false,
           url: link
         })
-        console.log('加载');
         this.flvPlayer.attachMediaElement(videoElement)
         this.flvPlayer.load()
         this.flvPlayer.play()
