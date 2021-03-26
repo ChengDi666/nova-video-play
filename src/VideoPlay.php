@@ -13,7 +13,25 @@ class VideoPlay extends Field
      */
     public $component = 'video-play';
 
+    /**
+     * 视频显示名称
+     *
+     * @param string $indexLabel
+     * @return array
+     */
     public function indexLabel($indexLabel) {
         return $this->withMeta(['indexLabel' => $indexLabel]);
     }
+
+
+    /**
+     * 直播保活
+     *
+     * @param string $keepAlive - 保活链接
+     * @return array
+     */
+    public function keepAlive($keepAlive) {
+        return $this->withMeta(['keepAlive' => $keepAlive]);
+    }
+
 }

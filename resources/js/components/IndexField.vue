@@ -8,7 +8,7 @@
       <div class="videoClear" @click="clearVideo">
         <span>X</span>
       </div>
-      <video-play v-if="show" ref="indexVideo" :link="field.value"></video-play>
+      <video-play v-if="show" ref="indexVideo" :link="field.value" :keepAlive="field.keepAlive"></video-play>
     </div>
     <div v-show="show" style="width: 100%;height: 100%; background: rgba(0, 0, 0, 0.5);position: fixed;top: 0;left: 0;z-index: 99"></div>
   </div>
@@ -59,7 +59,7 @@ export default {
   top: 2rem;
   right: 2rem;
   cursor: pointer;
-  z-index: 100;
+  z-index: 130;
 }
 .videoClear span{
   color: #fff;
