@@ -38,11 +38,4 @@ class VideoPlay extends Field
         return $this->withMeta(['deviceVideoLink' => $deviceVideoLink]);
     }
 
-    public function liveLogin($username, $password) {
-        return $this->withMeta([
-            'username' => $username,
-            'password' => $password
-        ]);
-    }
-
 }
