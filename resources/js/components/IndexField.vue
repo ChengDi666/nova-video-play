@@ -8,7 +8,7 @@
       <div class="videoClear" @click="clearVideo">
         <span>X</span>
       </div>
-      <video-play v-if="show" ref="indexVideo" :link="field.value" :keepAlive="field.keepAlive"></video-play>
+      <video-play v-if="show" ref="indexVideo" :field="field"></video-play>
     </div>
     <div v-show="show" style="width: 100%;height: 100%; background: rgba(0, 0, 0, 0.5);position: fixed;top: 0;left: 0;z-index: 99"></div>
   </div>
@@ -27,7 +27,7 @@ export default {
       }
     },
     mounted () {
-      // console.log(this.field);
+      console.log(this.field);
     },
     methods: {
       xianshi() {

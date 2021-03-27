@@ -9,12 +9,12 @@
 
 <script>
 import flvjs from 'flv.js'
+import axios from 'axios'
 export default {
   name: 'videoPlay',
   props: {
-    src: 'http://1011.hlsplay.aodianyun.com/demo/game.flv',
-    link: String,
-    keepAlive: String
+    // src: 'http://1011.hlsplay.aodianyun.com/demo/game.flv',
+    field: Object
   },
   data () {
     return {
@@ -24,16 +24,22 @@ export default {
       },
       linkIsErr: false,
       isUp: true,
-      aliveID: null
+      aliveID: null,
+      deviceId: null,
+      liveCookie: null
     }
   },
   mounted () {
-    if(this.link) {
-      this.createVideo(this.link, 'myVideo1', true)
+    console.log('field: ', this.field)
+    this.deviceId = this.field.value
+    if(this.deviceId) {
+      this.gologin(this.field.deviceVideoLink, this.field.username, this.field.password)
+      // this.getVideos(this.deviceId, this.field.deviceVideoLink)
+      // this.createVideo(this.deviceId, 'myVideo1', true)
     } else {
       this.linkIsErr = true
     }
-    if (this.keepAlive && this.keepAlive.length) {
+    if (this.field.keepAlive && this.field.keepAlive.length) {
       console.log('开启保活')
       this.baohuo()
     }
@@ -49,7 +55,7 @@ export default {
       this.qiehuan()
       this.aliveID = setInterval(() => {
         this.qiehuan()
-      }, 450000);
+      }, 45000);
     },
     createVideo (link, videoName, isPlay) {
       if (flvjs.isSupported()) {
@@ -95,10 +101,41 @@ export default {
       this.gengxin('')
     },
     getAlive() {
-      axios.get(this.keepAlive)
+      axios.get(this.field.keepAlive)
         .then(response => {
           // console.log(response);
         });
+    },
+    getVideos(deviceId, deviceVideoLink) {
+      axios.get(deviceVideoLink + '/api/v1/devices',{
+          // headers: {
+          //   "cookie" : this.liveCookie,
+          // },
+          transformRequest:[function (data1,headers){
+            console.log(headers.common)
+            delete headers.common['X-XSRF-TOKEN'];
+            return data1;
+          }]
+        }).then(response => {
+          console.log(response);
+        });
+    },
+    gologin(deviceVideoLink, username, password) {
+      axios.get(`${deviceVideoLink}/api/v1/login?username=${username}&password=${password}`, {
+            transformRequest:[function (data1,headers){
+              console.log(headers.common)
+              delete headers.common['X-XSRF-TOKEN'];
+              return data1;
+            }]
+          })
+          .then(response => {
+            console.log(response);
+            if(response.data.EasyDarwin && response.data.EasyDarwin.Body.Token) {
+              axios.defaults.withCredentials=true
+              this.liveCookie = `token=${response.data.EasyDarwin.Body.Token}`
+              this.getVideos(this.deviceId, this.field.deviceVideoLink)
+            }
+          });
     },
     gengxin(name) {
       axios.get('https://live.ljfl.ltd:4443/api/v1/devices/channelstream?device=2&channel=2&protocol=FLV')
