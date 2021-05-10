@@ -38,4 +38,13 @@ class VideoPlay extends Field
         return $this->withMeta(['deviceVideoLink' => $deviceVideoLink]);
     }
 
+    /**
+     * 视频播放链接
+     *
+     * @param string $videoLink - 播放链接
+     */
+    public function videoPlayLink($videoLink) {
+        return $this->withMeta(['videoPlayLink' => $videoLink]);
+    }
+
 }

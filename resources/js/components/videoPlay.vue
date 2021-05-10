@@ -23,7 +23,18 @@ export default {
     }
   },
   mounted () {
-    // console.log('field: ', this.field)
+    console.log('field: ', this.field)
+    if(this.field.value && typeof(this.field.value)=='string') {
+      // console.log(this.field.value);
+      this.createVideo(this.field.value);
+      // console.log('播放链接');
+      return
+    }
+    if(this.field.videoPlayLink) { // 播放链接
+      // console.log(this.field.videoPlayLink);
+      this.createVideo(this.field.videoPlayLink);
+      return
+    }
     if(!this.field.deviceVideoLink) {
       this.$toasted.show('缺少地址 —— deviceVideoLink !', { type: 'error' })
       return
