@@ -23,10 +23,11 @@ export default {
     }
   },
   mounted () {
-    console.log('field: ', this.field)
+    // console.log('field: ', this.field)
     if(this.field.value && typeof(this.field.value)=='string') {
       // console.log(this.field.value);
-      this.createVideo(this.field.value);
+      this.getVidoeLink(this.field.value);
+      // this.createVideo(this.field.value);
       // console.log('播放链接');
       return
     }
@@ -51,7 +52,23 @@ export default {
     }
   },
   methods: {
-    keepAlive(liveLink) {
+    getVidoeLink(url) {
+      const id = url.split('=')[1]
+      axios.get('/api/getVideoLink?deviceId=' + id).then(response => {
+        // console.log(response);
+          if(response.status != 200) return // 接口请求不成功
+          if(!response.data.data.data.length) return // 无数据
+          // console.log(response.data.data.data);
+          const item = response.data.data.data[0]
+          if(item.status == 'offline') {
+            this.$toasted.show('当前设备 - ' + item.name +' 不在线', { type: 'error' })
+            this.$parent.clearVideo()
+            return
+          }
+          this.createVideo(item.streamUrl)
+        });
+    },
+    keepAlive(liveLink) { // 保活
       this.getLiveVideos(liveLink)
       this.aliveID = setInterval(() => {
         this.getLiveVideos(liveLink)
@@ -59,6 +76,7 @@ export default {
     },
     createVideo (link) {
       if (flvjs.isSupported()) {
+        // console.log(link);
         const videoElement = this.$refs.myVideo;
         this.flvPlayer = flvjs.createPlayer({
           type: 'flv',
