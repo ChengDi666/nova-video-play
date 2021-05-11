@@ -5033,6 +5033,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var id = url.split('=')[1];
       __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/getVideoLink?deviceId=' + id).then(function (response) {
+        // http://106.12.99.48:6618
+        // https://video.ljfl.ltd/3/3?AVType=1&jsession=3c7584ab7131403f8d773f562cb2b0e0&DevIDNO=001871275649&Channel=0&Stream=1&port=6620
         // console.log(response);
         if (response.status != 200) return; // 接口请求不成功
         if (!response.data.data.data.length) return; // 无数据
@@ -5043,9 +5045,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.$parent.clearVideo();
           return;
         }
-        var link = item.streamUrl.slice(5, item.streamUrl.length);
-        // console.log(link);
-        _this.createVideo(link);
+        // console.log(item.streamUrl);
+        var str = 'https://video.ljfl.ltd' + item.streamUrl.slice(24) + '&port=' + item.streamUrl.slice(20, 24);
+        console.log(str);
+        _this.createVideo(str);
       });
     },
     keepAlive: function keepAlive(liveLink) {
