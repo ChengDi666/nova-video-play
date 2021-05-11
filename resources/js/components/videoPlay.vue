@@ -65,7 +65,9 @@ export default {
             this.$parent.clearVideo()
             return
           }
-          this.createVideo(item.streamUrl)
+          const link = (item.streamUrl).slice(5,item.streamUrl.length)
+          // console.log(link);
+          this.createVideo(link)
         });
     },
     keepAlive(liveLink) { // 保活

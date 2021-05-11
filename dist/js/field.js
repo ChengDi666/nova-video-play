@@ -5043,7 +5043,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.$parent.clearVideo();
           return;
         }
-        _this.createVideo(item.streamUrl);
+        var link = item.streamUrl.slice(5, item.streamUrl.length);
+        // console.log(link);
+        _this.createVideo(link);
       });
     },
     keepAlive: function keepAlive(liveLink) {
