@@ -27,8 +27,6 @@ export default {
     if(this.field.value && typeof(this.field.value)=='string') {
       // console.log(this.field.value);
       this.getVidoeLink(this.field.value);
-      // this.createVideo(this.field.value);
-      // console.log('播放链接');
       return
     }
     if(this.field.videoPlayLink) { // 播放链接
@@ -55,21 +53,17 @@ export default {
     getVidoeLink(url) {
       const id = url.split('=')[1]
       axios.get('/api/getVideoLink?deviceId=' + id).then(response => {
-        // http://106.12.99.48:6618
-        // https://video.ljfl.ltd/3/3?AVType=1&jsession=3c7584ab7131403f8d773f562cb2b0e0&DevIDNO=001871275649&Channel=0&Stream=1&port=6620
-        // console.log(response);
           if(response.status != 200) return // 接口请求不成功
           if(!response.data.data.data.length) return // 无数据
-          // console.log(response.data.data.data);
           const item = response.data.data.data[0]
           if(item.status == 'offline') {
             this.$toasted.show('当前设备 - ' + item.name +' 不在线', { type: 'error' })
             this.$parent.clearVideo()
             return
           }
-          // console.log(item.streamUrl);
-          let str = 'https://video.ljfl.ltd' + item.streamUrl.slice(24) + '&port=' + item.streamUrl.slice(20, 24)
-          console.log(str);
+          let str = 'https://video.ljfl.ltd' + item.streamUrl.slice(19)
+          // str = item.streamUrl          // 原数据
+          // console.log(str);
           this.createVideo(str)
         });
     },
