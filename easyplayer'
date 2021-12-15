@@ -1,0 +1,4 @@
+[main 95f20a5] 'flv.js-
+ 9 files changed, 30112 insertions(+), 72 deletions(-)
+ rewrite dist/js/field.js (62%)
+ create mode 100644 resources/js/components/easyPlay.vue
