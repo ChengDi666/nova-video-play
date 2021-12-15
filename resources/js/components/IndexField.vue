@@ -8,63 +8,32 @@
       <div class="videoClear" @click="clearVideo">
         <span>X</span>
       </div>
-      <video-play v-if="showVideo" ref="indexVideo" :field="field"></video-play>
+      <easy-play v-if="showVideo" ref="indexVideo" :field="field" style="margin: 4rem 2rem 2rem"></easy-play>
     </div>
     <div v-show="showVideo" style="width: 100%;height: 100%; background: rgba(0, 0, 0, 0.5);position: fixed;top: 0;left: 0;z-index: 99"></div>
   </div>
 </template>
 
 <script>
-import videoPlay from './videoPlay'
+import easyPlay from './easyPlay.vue'
+
 
 export default {
     props: ['resourceName', 'field'],
     name: 'indexField',
-    components: {videoPlay},
+    components: {easyPlay},
     data() {
       return {
         showVideo: false
       }
     },
     mounted () {
-      // console.log(this.field);
     },
     methods: {
       clearVideo () {
-        // console.log('关闭视频');
         this.$refs.indexVideo.destruction()
         this.showVideo = false
       }
     }
 }
 </script>
-
-<style>
-.videoBox{
-  width: 80%;
-  height: 80%;
-  background: #000;
-  position: fixed;
-  top: 10%;
-  left: 10%;
-  z-index: 100;
-  text-align: center;
-}
-.videoClear{
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  cursor: pointer;
-  z-index: 130;
-}
-.videoClear span{
-  color: #fff;
-  display: block;
-  font-size: 1.3rem;
-  width: 2rem;
-  height: 2rem;
-  line-height: 2rem;
-  border-radius: 3rem;
-  border: 1px solid #fff;
-}
-</style>

@@ -15,8 +15,8 @@
         "laravel-nova": "^1.0"
     },
     "dependencies": {
+        "@easydarwin/easyplayer": "^3.3.12",
         "axios": "^0.21.1",
-        "flv.js": "^1.5.0",
         "vue": "^2.5.0"
     }
 }
