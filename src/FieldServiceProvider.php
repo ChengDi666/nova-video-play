@@ -18,7 +18,9 @@ class FieldServiceProvider extends ServiceProvider
         Nova::serving(function (ServingNova $event) {
             Nova::script('Easy-Player', asset('/EasyPlayer-lib.min.js'));
             Nova::script('video-play', __DIR__.'/../dist/js/field.js');
+            Nova::style('element', 'https://unpkg.com/element-ui/lib/theme-chalk/index.css');
             Nova::style('video-play', __DIR__.'/../dist/css/field.css');
+
         });
     }
 

@@ -1,1 +1,32 @@
-.videoBox{width:80%;background:#000;position:fixed;top:10%;left:10%;z-index:100;text-align:center;background:#fff;border-radius:6px}.videoClear{position:absolute;top:1rem;right:2rem;cursor:pointer;z-index:10000}.videoClear span{color:#000;display:block;font-size:1.3rem;width:2rem;height:2rem;line-height:2rem;border-radius:3rem;border:1px solid #000}
+.videoBox {
+  width: 80%;
+  /*height: 80%;*/
+  background: #000;
+  position: fixed;
+  top: 10%;
+  left: 10%;
+  z-index: 100;
+  text-align: center;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.videoClear {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.videoClear span {
+  color: #000;
+  display: block;
+  font-size: 1.3rem;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  border-radius: 3rem;
+  border: 1px solid #000;
+}
+

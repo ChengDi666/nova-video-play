@@ -47,4 +47,13 @@ class VideoPlay extends Field
         return $this->withMeta(['videoPlayLink' => $videoLink]);
     }
 
+    /**
+     * 视频播放类型
+     *
+     * @param string $playType - 播放类型
+     */
+    public function playType($playType) {
+        return $this->withMeta(['playType' => $playType]);
+    }
+
 }

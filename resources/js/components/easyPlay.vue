@@ -19,7 +19,11 @@ import EasyPlayer from '@easydarwin/easyplayer'
 export default {
   name: 'easyPlay',
   props: {
-    field: Object
+    field: Object,
+    isautoplay: {
+      type: Boolean,
+      default: true
+    }
   },
   components: { EasyPlayer },
   data () {
@@ -33,7 +37,12 @@ export default {
     }
   },
   mounted () {
-    // console.log('field: ', this.field)
+    if (!this.isautoplay) return;
+    console.log('field: ', this.field)
+    if (this.field.playType == "playback") {
+      console.log('回放')
+      return;
+    }
     if(this.field.value && typeof(this.field.value)=='string') {
       if (!this.field.value.indexOf('http')) { // 完整链接
         this.getVidoeLink(url, true)
@@ -80,6 +89,9 @@ export default {
         }
         this.$toasted.show(err.request.responseText, { type: 'error' })
       })
+    },
+    playVideo(url) {
+      this.videoUrl = url
     },
     keepAlive(liveLink) { // 保活
       this.getLiveVideos(liveLink)
